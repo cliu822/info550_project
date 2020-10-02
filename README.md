@@ -50,5 +50,5 @@ for(p in pkgs){
 # Execute the analysis
 To execute the analysis, from the project folder you can run
 
-Rscript -e "rmarkdown::render('report.Rmd')"
-This will create a file called report.html output in your directory that contains the results.
+`Rscript -e "rmarkdown::render('info550_project.Rmd')"`
+This will create a file called info550_project.html output in your directory that contains the results.
