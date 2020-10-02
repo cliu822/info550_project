@@ -1,0 +1,10 @@
+Parameter,Description,Value,Source
+,Transmission prob per contact,0.035,Estimated[1]
+,Latent period,5.2 days,[6]
+,Recovery rate,7 days,[5]
+,Hospitalization rate per time step,0.0075,Estimated[2]
+Initials,,,
+Initial infections,Initial infections,1 per age group (16 total),Determined
+Initial population,Initial population,10.5 million,[9]
+Interventions,,,
+,Prop. isolated per time step,20%/50%,Determined
