@@ -12,15 +12,15 @@ The table below details the parameters used to parameterized the model
 
 Parameter|	Description|	Value|	Source
 ---------|----------------|-----------|----------
-beta| Transmission prob per contact}	0.035	Estimated[1]
-alpha|	Latent period|	5.2 days|	[6]
-gamma|	Recovery rate|	7 days|	[5]
-delta|	Hospitalization rate per time step|	0.0075|	Estimated[2]
-Initials|			
-Initial infections|	Initial infections|	1 per age group (16 total)|	Determined
-Initial population|	Initial population|	10.5 million|	[9]
-Interventions|			
-tau|	Prop. isolated per time step|	20%/50%|	Determined
+**beta**| Transmission prob per contact}	0.035	Estimated[1]
+**alpha**|	Latent period|	5.2 days|	[6]
+**gamma**|	Recovery rate|	7 days|	[5]
+**delta**|	Hospitalization rate per time step|	0.0075|	Estimated[2]
+**Initials**|			
+**Initial infections**|	Initial infections|	1 per age group (16 total)|	Determined
+**Initial population**|	Initial population|	10.5 million|	[9]
+**Interventions**|			
+**tau**|	Prop. isolated per time step|	20%/50%|	Determined
 
 
 # Intervention scenarios
