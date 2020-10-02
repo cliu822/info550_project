@@ -11,6 +11,7 @@ We adapt code from a previously published age-structured deterministic susceptib
 The table below details the parameters used to parameterized the model
 
 Parameter|	Description|	Value|	Source
+---------|----------------|-----------|----------
 beta| Transmission prob per contact}	0.035	Estimated[1]
 alpha|	Latent period|	5.2 days|	[6]
 gamma|	Recovery rate|	7 days|	[5]
