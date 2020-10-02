@@ -8,9 +8,10 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = F)
 
+installed_pkgs <- row.names(installed.packages())
 pkgs <- c("ggplot2", "reshape2","gridExtra","kableExtra")
 for(p in pkgs){
-	if(!(p %in% pkgs)){
+	if(!(p %in% installed_pkgs)){
 		install.packages(p)
 	}
 }
