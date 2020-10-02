@@ -26,6 +26,17 @@ Parameter|	Description|	Value|	Source
 # Intervention scenarios
 The table below details the intervention scenarios explored in our model
 
+Scenario|	Do Nothing|	Indefinite Shelter in Place|	Relax Shelter in Place & Some return to work|	Relax Shelter in place & all return to work & home distance
+--------|----------------|-----------------------------|-----------------------------------------------|---------------------------------------------------
+Shelter-in-place start|	Never|	March 16th, 2020|	March 16th, 2020|	March 16th, 2020
+Shelter-in-place relax}	NA|	Never|	May 1st, 2020|	May 1st, 2020
+Home contacts|	0% reduction|	0% reduction|	0% reduction|	0% reduction/50%reduction
+School contacts|	0% reduction|	100% reduction|	Closed (100% reduction)|	Closed (100% reduction)
+Work contacts|	0% reduction|	90% reduction|	90% reduction/50% reduction|	90% reduction/0% reduction
+Other contacts|	0% reduction|	90% reduction|	90% reduction/50% reduction|	90% reduction/50% reduction
+
+
+
 installed_pkgs <- row.names(installed.packages())
 pkgs <- c("ggplot2", "reshape2","gridExtra","kableExtra")
 for(p in pkgs){
