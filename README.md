@@ -39,17 +39,28 @@ Other contacts|	0% reduction|	90% reduction|	90% reduction/50% reduction|	90% re
 
 To analyze the data you will need to install some `R` packages. The required packages can be installed using `R commands`.
 
-`installed_pkgs <- row.names(installed.packages())
+``` r
+installed_pkgs <- row.names(installed.packages())
 
 pkgs <- c("ggplot2", "reshape2","kableExtra")
 for(p in pkgs){
 	if(!(p %in% installed_pkgs)){
 		install.packages(p)
 	}
-}`
+}
+```
 
 # Execute the analysis
-To execute the analysis, from the project folder you can run
+To execute the analysis, from the project folder you can run the following command:
 
-`Rscript -e "rmarkdown::render('info550_project.Rmd')"`
+`Rscript -e "rmarkdown::render('4_info550_project.Rmd')"`
+
 This will create a file called info550_project.html output in your directory that contains the results.
+
+# GNU Make
+You can also use the following make commands to install packages and execute the analysis:
+
+`make install`
+
+`make report.html`
+
