@@ -61,5 +61,6 @@ This will create a file called info550_project.html output in your directory tha
 You can also use the following make commands to install packages and execute the analysis:
 
 `make install`
+
 `make report.html`
 
