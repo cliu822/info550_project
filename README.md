@@ -50,7 +50,18 @@ for(p in pkgs){
 }
 ```
 
-# Execute the analysis
+# Execute the analysis using docker
+1. Download the Docker image:
+
+`docker pull cliu369/dockerhub:info550_project`
+
+2. Mount to the output directory and run:
+
+`docker run -v/output/path:/project -it cliu369/dockerhub:info550_project`
+
+3. This will generate the report `report.html` that will be created in your local working directory. 
+
+# Execute the analysis using make
 To execute the analysis, from the project folder you can run the following command:
 
 `Rscript -e "rmarkdown::render('4_info550_project.Rmd')"`
