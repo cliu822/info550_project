@@ -1,0 +1,107 @@
+---
+title: "info550_project"
+author: "Carol Liu"
+date: "10/1/2020"
+output: html_document
+---
+
+```{r setup, echo=F}
+
+knitr::opts_chunk$set(echo = F)
+
+
+library(ggplot2)
+library(reshape2)
+
+contacts<-readRDS("usa_contacts")
+georgiapop<-read.csv("georgiapop.csv")
+parms <- read.csv("parms.csv")
+int_scen <- read.csv("intervention_scenarios.csv")
+
+
+source("2_model.R")
+source("3_simulation.R")
+
+```
+
+# Background
+
+As mentioned in the README.md, we use use a simple SEIR-like model I previously worked on to simulate cases of severe acute respiratory syndrome coronoavirus 2 (SARS-CoV2) in Georgia. State-level shelter-in-place orders began on March 16th where schools, work places and leisure areas were closed. At the time, I was subsequently interested in the impact of different social distancing strategies on infection transmission. The goal of my model was to address the following primary research question (from early May): how will the epidemic differ if current shelter-in-place orders are relaxed with a 50% return to work and no additional intervention versus a 100% return to work and either 1) additional measures to social distance at home; 2) isolation of 20% of pre-infectious cases identified from contact tracing or 3) isolation of 50% of pre-infectious cases identified from contact tracing?
+
+The methods, model structure, input parameters and intervention scenarios are described in the README.md as well.
+```{r}
+
+######################################
+#####Summaries and Plots below#######
+#####################################
+
+## Total incidence
+date<-seq(from = as.Date('2020-02-01'), to = as.Date('2020-02-01') + 399, by = 1)
+epi_totincidence<-data.frame(time=date,Donothing=rep(0,400),IndefiniteShelter=rep(0,400),ShelterRelaxWork=rep(0,400),ShelterRelaxHomedist=rep(0,400),
+                             RelaxIsolate1=rep(0,400),RelaxIsolate2=rep(0,400))
+
+epi_totincidence["Donothing"]<-rowSums(epi_donothing$incidence)
+epi_totincidence["IndefiniteShelter"]<-rowSums(epi_shelterinplace$incidence)
+epi_totincidence["ShelterRelaxWork"]<-rowSums(epi_shelterrelax$incidence)
+epi_totincidence["ShelterRelaxHomedist"]<-rowSums(epi_relaxhomedist$incidence)
+epi_totincidence["RelaxIsolate1"]<-rowSums(epi_relaxisolate1$incidence)
+epi_totincidence["RelaxIsolate2"]<-rowSums(epi_relaxisolate2$incidence)
+
+epi_totincidence<-melt(epi_totincidence,id="time")
+  
+p1<-ggplot(epi_totincidence ,aes(x=time,y=value))+
+  geom_line(size=1,aes(x=time,y=value,color=variable))+
+  #scale_color_manual(values=c("red","black"),labels=c("Projected", "Observed"))+
+  xlab("Date")+ylab("New infections") + 
+  theme_minimal()+
+  #geom_rect(aes(xmin=as.Date('2020-03-16'), xmax=as.Date('2020-05-01'), ymin=0, ymax=Inf))
+  geom_vline(xintercept=as.Date('2020-03-16'), linetype=1) +
+  theme(legend.position="bottom",legend.title=element_blank())+
+  ggtitle("New infections over time in Georgia under six intervention scenarios for all age-groups")
+
+p1
+```
+
+# SUmmary results
+
+Below is some summary statistics under the six interventions. Specifically, we explore the peak date of incidence, number of new infections at peak incidence and the total infections from until the end of the simulation (spring 2021). We see that in a do nothing scenario, the cumulative cases is simulated to be `r round(sum(rowSums(epi_donothing[["incidence"]])), digits =0)`, in a scenario of indefinite shelter-in-place and perpetual maximum social distancing, the cumulative cases is simulated to be `r  round(sum(rowSums(epi_shelterinplace[["incidence"]])), digits =0)`. In reality, Georgia currently has over 300,000 cases. Alas, all models are wrong, some are useful. 
+
+``` {r summary_results}
+######################################
+#######Summary results     #################
+######################################
+
+results <- data.frame(Intervention = c("DoNothing","IndefiniteShelter",
+                                       "ShelterRelaxWork","ShelterRelaxHomeDist",
+                                       "RelaxIsolate1","RelaxIsolate2"),
+                      PeakDate = c(
+                       as.Date('2020-02-01')+which.max(rowSums(epi_donothing[["incidence"]])),
+                      as.Date('2020-02-01')+which.max(rowSums(epi_shelterinplace[["incidence"]])),
+                      as.Date('2020-02-01')+which.max(rowSums(epi_shelterrelax[["incidence"]])),
+                      as.Date('2020-02-01')+which.max(rowSums(epi_relaxhomedist[["incidence"]])),
+                      as.Date('2020-02-01')+which.max(rowSums(epi_relaxisolate1[["incidence"]])),
+                      as.Date('2020-02-01')+which.max(rowSums(epi_relaxisolate2[["incidence"]]))),
+                      
+                      PeakIncidence = c(
+                      round(max(rowSums(epi_donothing[["incidence"]])), digits=0),
+                      round(max(rowSums(epi_shelterinplace[["incidence"]])), digits=0),
+                      round(max(rowSums(epi_shelterrelax[["incidence"]])),digits=0),
+                      round(max(rowSums(epi_relaxhomedist[["incidence"]])), digits=0),
+                      round(max(rowSums(epi_relaxisolate1[["incidence"]])), digits=0),
+                      round(max(rowSums(epi_relaxisolate2[["incidence"]])),digits=0)),
+
+                      Totalnfections = c(
+                      round(sum(rowSums(epi_donothing[["incidence"]])), digits =0),
+                      round(sum(rowSums(epi_shelterinplace[["incidence"]])), digits =0),
+                      round(sum(rowSums(epi_shelterrelax[["incidence"]])), digits=0),
+                      round(sum(rowSums(epi_relaxhomedist[["incidence"]])), digits = 0),
+                      round(sum(rowSums(epi_relaxisolate1[["incidence"]])), digits =0),
+                      round(sum(rowSums(epi_relaxisolate2[["incidence"]])), digits =0)))
+
+results
+
+```
+
+
+
+
