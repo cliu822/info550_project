@@ -35,21 +35,6 @@ School contacts|	0% reduction|	100% reduction|	Closed (100% reduction)|	Closed (
 Work contacts|	0% reduction|	90% reduction|	90% reduction/50% reduction|	90% reduction/0% reduction
 Other contacts|	0% reduction|	90% reduction|	90% reduction/50% reduction|	90% reduction/50% reduction
 
-# Package install
-
-To analyze the data you will need to install some `R` packages. The required packages can be installed using `R commands`.
-
-``` r
-installed_pkgs <- row.names(installed.packages())
-
-pkgs <- c("ggplot2", "reshape2","kableExtra")
-for(p in pkgs){
-	if(!(p %in% installed_pkgs)){
-		install.packages(p)
-	}
-}
-```
-
 # Execute the analysis using docker
 1. Download the Docker image:
 
@@ -74,4 +59,19 @@ You can also use the following make commands to install packages and execute the
 `make install`
 
 `make report.html`
+
+# Package install
+
+To analyze the data you will need to install some `R` packages. The required packages can be installed using `R commands` (if not using make commands or docker) 
+
+``` r
+installed_pkgs <- row.names(installed.packages())
+
+pkgs <- c("ggplot2", "reshape2","kableExtra")
+for(p in pkgs){
+	if(!(p %in% installed_pkgs)){
+		install.packages(p)
+	}
+}
+```
 
